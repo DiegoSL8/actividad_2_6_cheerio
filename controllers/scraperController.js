@@ -3,6 +3,13 @@ const scraperService = require('../services/scraperService');
 
 async function getScrapedData(req, res) {
     try {
+        // Validación 400 (Bad Request): Verificamos que el método sea estrictamente GET
+        if (req.method !== 'GET') {
+            return res.status(400).json({
+                success: false,
+                message: "Método no permitido. Utilice una petición GET."
+            });
+        }
         // Ejecutamos el servicio para obtener la lista de libros
         const data = await scraperService.obtenerLibros();
 
